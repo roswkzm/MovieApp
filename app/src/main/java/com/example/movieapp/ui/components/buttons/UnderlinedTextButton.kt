@@ -1,9 +1,9 @@
-package com.example.movieapp.ui.components.movie.buttons
+package com.example.movieapp.ui.components.buttons
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -14,33 +14,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.movieapp.ui.theme.MovieAppTheme
 import com.example.movieapp.ui.theme.Paddings
 import com.example.movieapp.ui.theme.colorScheme
+import com.example.movieapp.ui.theme.underlinedButton
 
 @Composable
-fun SecondaryButton(
+fun UnderLinedTextButton(
     modifier : Modifier = Modifier,
     @StringRes id : Int? = null,
     text : String = "",
     onClick : () -> Unit
 ) {
     Button(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
         onClick = onClick,
-        border = BorderStroke(
-            2.dp,
-            MaterialTheme.colors.secondary
-        ),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colorScheme.background,
             contentColor = MaterialTheme.colorScheme.secondary,
             disabledContentColor = MaterialTheme.colorScheme.background,
             disabledBackgroundColor = MaterialTheme.colorScheme.disabledSecondary
-
-        )
+        ),
+        elevation = null
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -48,7 +44,7 @@ fun SecondaryButton(
         ) {
             Text(
                 text = id?.let { stringResource(id = id) } ?: text,
-                style = MaterialTheme.typography.button,
+                style = MaterialTheme.typography.underlinedButton,
                 modifier = Modifier.padding(Paddings.small)
             )
         }
@@ -57,10 +53,10 @@ fun SecondaryButton(
 
 @Preview
 @Composable
-fun SecondaryButtonPreview() {
+fun UnderLinedTextButtonPreview() {
     MovieAppTheme {
-        SecondaryButton(
-            text = "CANCEL"
+        UnderLinedTextButton(
+            text = "SUBMIT"
         ){
 
         }
