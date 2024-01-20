@@ -5,6 +5,11 @@ buildscript {
         kotlin_version = "1.6.10"
         coil_version = '2.5.0'
         compose_material_version = '1.0.1'
+        hilt_version = '2.28-alpha'
+        timber_version = '5.0.1'
+        retrofit_version = '2.9.0'
+        gson_version = '2.10.1'
+        lifecycle_version = '2.7.0'
     }
 
     repositories {
@@ -14,6 +19,7 @@ buildscript {
     dependencies {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
     }
 }
 
