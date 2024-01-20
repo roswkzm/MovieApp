@@ -1,8 +1,6 @@
 package com.example.movieapp.ui.components.dialog
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
-import com.example.movieapp.R
 import com.example.movieapp.ui.models.dialog.DialogButton
 import com.example.movieapp.ui.models.dialog.DialogContent
 import com.example.movieapp.ui.models.dialog.DialogText
