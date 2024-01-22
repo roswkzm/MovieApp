@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.movieapp.features.common.entity.EntityWrapper
 import com.example.movieapp.features.common.repository.IMovieDataSource
 import com.example.movieapp.features.feed.domain.usecase.IGetFeedCategoryUseCase
-import com.example.movieapp.features.feed.presentation.input.IFeedViewModelInputs
+import com.example.movieapp.features.feed.presentation.input.IFeedViewModelInput
 import com.example.movieapp.features.feed.presentation.output.FeedState
 import com.example.movieapp.features.feed.presentation.output.FeedUiEffect
 import com.example.movieapp.features.feed.presentation.output.IFeedViewModelOutput
@@ -21,7 +21,10 @@ import javax.inject.Inject
 class FeedViewModel @Inject constructor(
     private val movieRepository: IMovieDataSource,
     private val getFeedCategoryUseCase : IGetFeedCategoryUseCase
-) : ViewModel(), IFeedViewModelOutput, IFeedViewModelInputs {
+) : ViewModel(), IFeedViewModelOutput, IFeedViewModelInput {
+
+    val output : IFeedViewModelOutput = this
+    val input : IFeedViewModelInput = this
 
     // 화면에 보여주기 위한 Flow
     private val  _feedState : MutableStateFlow<FeedState> =
