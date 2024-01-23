@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.movieapp.features.detail.presentation.MovieDetailScreen
 import com.example.movieapp.features.detail.presentation.output.DetailUiEffect
 import com.example.movieapp.features.detail.presentation.viewmodel.MovieDetailViewModel
+import com.example.movieapp.ui.BaseFragment
 import com.example.movieapp.ui.navigation.safeNavigate
 import com.example.movieapp.ui.theme.MovieAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailFragment : Fragment() {
+class DetailFragment : BaseFragment() {
     private val viewModel: MovieDetailViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
 
@@ -38,7 +38,9 @@ class DetailFragment : Fragment() {
 
         return ComposeView(requireContext()).apply {
             setContent {
-                MovieAppTheme {
+                MovieAppTheme(
+                    themeState = themeViewModel.themeState.collectAsState()
+                ) {
                     MovieDetailScreen(
                         movieDetailState = viewModel.outputs.detailState.collectAsState(),
                         input = viewModel.inputs

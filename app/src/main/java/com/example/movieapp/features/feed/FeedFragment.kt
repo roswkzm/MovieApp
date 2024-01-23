@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.movieapp.features.feed.presentation.output.FeedUiEffect
 import com.example.movieapp.features.feed.presentation.screen.FeedScreen
 import com.example.movieapp.features.feed.presentation.viewmodel.FeedViewModel
+import com.example.movieapp.ui.BaseFragment
 import com.example.movieapp.ui.navigation.safeNavigate
 import com.example.movieapp.ui.theme.MovieAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FeedFragment : Fragment() {
+class FeedFragment : BaseFragment() {
 
     val viewModel : FeedViewModel by viewModels()
     override fun onCreateView(
@@ -34,10 +34,14 @@ class FeedFragment : Fragment() {
 
         return ComposeView(requireContext()).apply {
             setContent {
-                MovieAppTheme {
+                MovieAppTheme(
+                    themeState = themeViewModel.themeState.collectAsState()
+                ) {
                     FeedScreen(
                         feedStateHolder = viewModel.output.feedState.collectAsState(),
-                        input = viewModel.input
+                        input = viewModel.input,
+                        buttonColor = themeViewModel.nextColorState.collectAsState(),
+                        changeAppColor = {themeViewModel.toggleColorSet()}
                     )
                 }
             }
@@ -56,9 +60,9 @@ class FeedFragment : Fragment() {
                             )
                         }
                         is FeedUiEffect.OpenInfoDialog -> {
-//                            navController.safeNavigate(
-//                                FeedFragmentDirections.actionFeedToInfo()
-//                            )
+                            navController.safeNavigate(
+                                FeedFragmentDirections.actionFeedToInfo()
+                            )
                         }
                     }
                 }
